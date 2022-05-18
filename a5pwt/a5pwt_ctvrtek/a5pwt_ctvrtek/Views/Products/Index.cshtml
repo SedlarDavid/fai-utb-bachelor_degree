@@ -1,0 +1,21 @@
+﻿@model a5pwt_ctvrtek.Application.ViewModels.Products.IndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+<div class="row">
+    @foreach (var product in Model.Products)
+    {
+        <div class="col-xs-4">
+            <div class="thumbnail">
+                <img src="@product.ImageURL" alt="@product.Name" />
+                <div class="caption">
+                    <h3>@product.Name</h3>
+                    <a class="btn btn-primary" asp-controller="Products" asp-action="Detail" asp-route-id="@product.ID">Detail</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

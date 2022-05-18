@@ -1,0 +1,81 @@
+﻿@model a5pwt_ctvrtek.Application.ViewModels.Carts.IndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Košík</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Produkt
+            </th>
+            <th>
+                Obrázek
+            </th>
+            <th>
+                Množství
+            </th>
+            <th>
+                Cena za kus
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CartItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    <img class="product-thumbnail" src="@item.ImageURL" alt="@item.ProductName" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h3>
+    Celkem: @Model.Total Kč
+</h3>
+
+@if (Model.CartItems.Count > 0 && Model.UserID.HasValue)
+{
+    <a asp-controller="Orders" asp-action="Create" class="btn btn-primary">Objednat</a>
+}
+
+@if (Model.RelatedItems.Count > 0)
+{
+    <br />
+    <h3>Mohlo by Vás zajímat:</h3>
+    <div style="display: flex;">
+        @foreach (var item in Model.RelatedItems)
+        {
+            <div style="margin:auto">
+                <dl>
+                    <dd>
+
+                        <h4>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </h4>
+                    </dd>
+                    <dd>
+                        <img class="product-thumbnail" src="@item.ImageURL" alt="@item.Name" />
+                    </dd>
+                    <dd>
+                        <a class="btn btn-primary" asp-controller="Products" asp-action="Detail" asp-route-id="@item.ID">Detail</a>
+                    </dd>
+                </dl>
+            </div>
+
+        }
+    </div>
+}

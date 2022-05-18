@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">A5pma</string>
+    <string name="city">Město</string>
+    <string name="forecast">Předpověď</string>
+    <string name="settings">Nastavení</string>
+    <string name="save">Uložit</string>
+    <string name="language">Jazyk</string>
+    <string name="units">Jednotky</string>
+    <string name="time">Čas</string>
+    <string name="summary">Obecné</string>
+    <string name="temperature">Teplota</string>
+    <string name="splash_logo">Splash logo</string>
+    <string name="background">Obrázek pozadí</string>
+    <string name="saved">Nastavení uloženo</string>
+    <string name="city_network_error">Bez připojení, město nebylo aktualizováno.</string>
+    <string name="no_internet_label">Pro zobrazení předpovědi se připojte k internetu a aktualizujte "Internet" v nastavení.</string>
+    <string name="refresh_network">Aktualizovat připojení</string>
+    <string name="network_online">Spojení navázáno</string>
+    <string name="network_offline">Nebylo možné připojit zařízení k síti</string>
+</resources>

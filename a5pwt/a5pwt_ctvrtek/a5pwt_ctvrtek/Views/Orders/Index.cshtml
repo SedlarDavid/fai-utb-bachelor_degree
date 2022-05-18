@@ -1,0 +1,38 @@
+﻿@model a5pwt_ctvrtek.Application.ViewModels.Orders.IndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Objednávky</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               DateCreated
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+               ItemCount
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Orders) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemCount)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

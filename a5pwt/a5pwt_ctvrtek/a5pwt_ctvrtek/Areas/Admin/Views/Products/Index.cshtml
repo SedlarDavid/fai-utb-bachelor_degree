@@ -1,0 +1,144 @@
+﻿@model a5pwt_ctvrtek.Application.ViewModels.Products.IndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Products</h2>
+
+<div class="col-lg-1 col-lg-offset-11">
+    <button type="button" class="btn btn-default btn-insert"
+            data-toggle="tooltip" data-placement="bottom"
+            title="Přidat">
+        <i class="glyphicon-plus"></i>
+    </button>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Products) {
+        <tr>
+            <td class="id">@item.ID</td>
+            <td class="name">@item.Name</td>
+            <td class="price">@item.Price</td>
+            <td class="imageurl"><img class="product-thumbnail" src="@item.ImageURL" alt="@item.Name" /></td>
+            <td class="category">@item.Category</td>
+            <td class="actions">
+                @*<a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@item.ID">Editovat</a>*@
+                <button class="btn btn-primary btn-edit">Editovat</button> |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section scripts{ 
+<script>
+    $(document).ready(() => {
+        $('.btn-insert').click(createRow);
+        $(document).on('click', '.btn-discard', discard);
+        $(document).on('click', '.btn-save', insert);
+        $(document).on('click', '.btn-edit', edit);
+        $(document).on('click', '.btn-saveedit', saveEdit);
+    });
+    
+    function edit() {
+        const row = $(this).closest('tr');
+        let id = row.find('.id').text(),
+            name = row.find('.name').text(),
+            price = row.find('.price').text(),
+            imageurl = row.find('.imageurl img').attr('src'),
+            category = row.find('.category').text();
+
+        row.find('.id').html('<input class="form-control" name="ID" type="number" value="' + parseInt(id) + '" readonly />');
+        row.find('.name').html('<input class="form-control" name="Name" type="text" value="' + name + '" />');
+        row.find('.price').html('<input class="form-control" name="Price" type="number" value="' + parseFloat(price) + '" />');
+        row.find('.imageurl').html('<input class="form-control" name="Image" type="file" />' +
+            '<input name="ImageURL" type="hidden" value="' + imageurl + '" />');
+        row.find('.category').html('<input class="form-control" name="Category" type="text" value="' + category + '" />');
+        row.find('.actions').html('<button type="button" class="btn btn-primary btn-saveedit">Uložit</button>');
+    }
+
+    function createRow() {
+        const table = $('table tbody');
+        table.prepend(
+            '<tr>' +
+                '<td class="id" data-id=""></td>' +
+                '<td class="name" data-name="">' +
+                    '<input type="text" class="form-control" name="Name" />' +
+                '</td>' +
+                '<td class="price" data-price="">' +
+                    '<input type="number" class="form-control" name="Price" />' +
+                '</td>' +
+                '<td class="imageurl" data-image-url="">' +
+                    '<input type="file" class="form-control" name="Image" />' +
+                '</td>' +
+                '<td class="category" data-category="">' +
+                    '<input type="text" class="form-control" name="Category" />' +
+                '</td>' +
+                '<td>' +
+                    '<button type="button" class="btn btn-primary btn-save">Uložit</button>' +
+                    '<button type="button" class="btn btn-danger btn-discard">Zahodit</button>' +
+                '</td>' +
+
+            '</tr>'
+        );
+    }
+
+    function discard() {
+        const row = $(this).closest('tr');
+        row.remove();
+    }
+
+    function insert() {
+        sendData('@Url.Action("Insert")', this);
+    }
+    
+    function saveEdit() {
+        sendData('@Url.Action("Edit")', this);
+    }
+
+    function sendData(actionUrl, context) {
+        const row = $(context).closest('tr');
+        const inputs = row.find('input');
+
+        const form = document.createElement('form');
+        inputs.map((i, input) => form.append(input.cloneNode()));
+        const formData = new FormData(form);
+
+        $.ajax({
+            method: 'POST',
+            url: actionUrl,
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                row.find('.id').text(data.ID);
+                row.find('.name').html(data.name);
+                row.find('.price').html(data.price);
+                row.find('.imageurl').html(createImg(data.imageURL));
+                row.find('.category').html(data.category);
+            }
+        });
+    }
+
+    function createImg(imageURL) {
+        const img = document.createElement('img');
+        img.src = imageURL;
+        img.classList.add('product-thumbnail');
+        return img;
+    }
+
+</script>
+}

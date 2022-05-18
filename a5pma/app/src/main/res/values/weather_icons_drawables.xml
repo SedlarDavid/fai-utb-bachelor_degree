@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="weather_icons_drawables">
+        <item>@drawable/clear_day</item>
+        <item>@drawable/clear_night</item>
+        <item>@drawable/cloudy</item>
+        <item>@drawable/fog</item>
+        <item>@drawable/partly_cloudy_day</item>
+        <item>@drawable/partly_cloudy_night</item>
+        <item>@drawable/rain</item>
+        <item>@drawable/sleet</item>
+        <item>@drawable/snow</item>
+        <item>@drawable/wind</item>
+    </array>
+</resources>

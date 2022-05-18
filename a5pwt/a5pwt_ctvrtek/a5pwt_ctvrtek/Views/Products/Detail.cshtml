@@ -1,0 +1,74 @@
+﻿@model a5pwt_ctvrtek.Application.ViewModels.Products.ProductViewModel
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h2>Detail</h2>
+
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-5">
+            <img src="@Model.ImageURL" alt="@Model.Name" style="max-height:200px;" />
+        </div>
+        <div class="col-md-3">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Price)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Category)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Category)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-2">
+            <input class="form-control" type="number" value="1" />
+            <button id="add-to-cart" data-id="@Model.ID" class="btn btn-primary">Přidat do košíku</button>
+
+            <div class="alert alert-success" id="success-alert" style="display:none;">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>Added!</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+    $(document).ready(() => {
+        $('#add-to-cart').click(addToCart);
+    });
+
+    function addToCart() {
+        var id = $(this).data('id');
+        var amount = $(this).closest('div').find('input').val();
+
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Action("AddToCart", "Carts")',
+            data: {id: id, amount: amount},
+            success: function () {
+                $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#success-alert").slideUp(500);
+                });
+            }
+        })
+    }
+    </script>
+}

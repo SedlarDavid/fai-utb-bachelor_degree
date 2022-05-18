@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lay_forecast_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/forecast_list_thumbnail"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/clear_day"
+        android:tint="@color/colorPrimary"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/forecast_list_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="115dp"
+        android:layout_marginRight="245dp"
+        android:layout_toStartOf="@+id/forecast_list_temperature"
+        android:layout_toEndOf="@+id/forecast_list_thumbnail"
+        android:layout_toRightOf="@+id/forecast_list_thumbnail"
+        android:text="@string/time"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/forecast_list_summary"
+        android:layout_width="147dp"
+        android:layout_height="54dp"
+        android:layout_below="@+id/forecast_list_time"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/forecast_list_thumbnail"
+        android:layout_toRightOf="@+id/forecast_list_thumbnail"
+        android:text="@string/summary"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/forecast_list_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginRight="33dp"
+        android:layout_toEndOf="@+id/forecast_list_summary"
+        android:layout_toRightOf="@+id/forecast_list_summary"
+        android:text="@string/temperature"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp" />
+
+</RelativeLayout>
